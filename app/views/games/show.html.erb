@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<%= link_to 'Edit', edit_game_path(@game) %> |
+<%= link_to 'Back', games_path %>
+<br>
+ID:
+<%= @game.id%>
+<br>
+User Count:
+<%= @game.users.count%>
+
+<br>
+
+
+<%= form_with(url: "/games/add_opp", method: "post") do %>
+  <%= label_tag(:opp, "Opponent email:") %>
+  <%= text_field_tag(:opp) %>
+  <%= hidden_field_tag 'game', @game.id %>
+  <%= submit_tag("Add") %>
+<% end %>

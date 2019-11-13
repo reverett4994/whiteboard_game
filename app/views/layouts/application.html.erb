@@ -4,7 +4,7 @@
     <title>Whiteboard</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
+    <%= Gon::Base.render_data %>
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
@@ -12,6 +12,10 @@
   <body onload="init()">
     <% if user_signed_in?%>
         <%=(current_user.email) %>
+        <% if current_user.game %>
+          game id
+          <%=current_user.game.id%>
+        <%end%>
         <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>
     <%else%>
        <%= link_to('Login',new_user_session_path)%>

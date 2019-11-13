@@ -55,3 +55,5 @@ gem 'devise'
 gem 'high_voltage', '~> 3.1'
 
 gem 'jquery-rails'
+
+gem 'gon'

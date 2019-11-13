@@ -22,7 +22,7 @@
 <input type="button" value="save" id="btn" size="30" onclick="save()" >
 <input type="button" value="clear" id="clr" size="23" onclick="erase()" >
 
-<%= button_to "update url",'/user/update_op_url', params: { url: "SDJKFDSDFKJH" } %>
+<%= button_to "update url",'/user/update_op_url', params: { url: "SDJKFDSDFKJH" },:id => "update_btn"  %>
 
 <%= current_user.op_url%>
 
@@ -123,8 +123,25 @@
         document.getElementById("canvasimg").style.border = "2px solid";
         var dataURL = canvas.toDataURL();
         console.log(dataURL)
+        $('#update_btn').attr('url',dataURL);
         document.getElementById("canvasimg").src = dataURL;
         document.getElementById("canvasimg").style.display = "inline";
+
+            $.ajax({
+              type: "POST",
+              url: "/user/update_op_url",
+              dataType:"json",
+              data: {url:dataURL },
+              success:function(data) {
+                
+                return false;
+              },
+              error:function(data) {
+                
+                return false;
+              }
+            });
+
     }
     
     function findxy(res, e) {
@@ -155,25 +172,12 @@
                 currY = e.clientY - canvas.offsetTop;
                 draw();
 
-                    $.ajax({
-                      type: "POST",
-                      url: "/user/update_op_url",
-                      dataType:"json",
-                      data: {url:"up"},
-                      success:function(data) {
-                        console.log('dsfsdf')
-                        return false;
-                      },
-                      error:function(data) {
-                        console.log('dsfsdf')
-                        return false;
-                      }
-                    });
 
             }
         }
     }
 
+ 
 
 
     </script>
