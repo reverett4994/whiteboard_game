@@ -1,6 +1,22 @@
 class GamesController < ApplicationController
   before_action :set_game, only: [:show, :edit, :update, :destroy]
 
+  def guesser
+    gon.url = current_user.op_url
+    gon.user = current_user.id
+  end
+
+  def make_drawer
+    @user = User.where("email LIKE ?",params[:user])
+    @user = @user.last
+    @game = @user.game
+    @game.users.each do |u|
+      u.guesser = true
+      u.save
+    end
+    @user.guesser = false
+    @user.save
+  end
   # GET /games
   # GET /games.json
   def index
@@ -10,6 +26,7 @@ class GamesController < ApplicationController
   # GET /games/1
   # GET /games/1.json
   def show
+    
   end
 
   # GET /games/new

@@ -8,4 +8,11 @@ class UserController < ApplicationController
 		end
 	end
 
+	def get_op_url
+		@user = User.find(params[:u])
+	    respond_to do |format|
+	        format.json { render :json => ( @user.op_url) }
+         end
+	end
+
 end

@@ -11,5 +11,8 @@ Rails.application.routes.draw do
     end
 
    post '/user/update_op_url' => 'user#update_op_url'
+   post '/user/get_op_url' => 'user#get_op_url'
    post '/games/add_opp' => 'games#add_opp'
+   post '/make_drawer' => 'games#make_drawer'
+   get '/guesser' => 'games#guesser'
 end
