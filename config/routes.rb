@@ -15,4 +15,7 @@ Rails.application.routes.draw do
    post '/games/add_opp' => 'games#add_opp'
    post '/make_drawer' => 'games#make_drawer'
    get '/guesser' => 'games#guesser'
+   post 'start' => 'games#start'
+   get '/drawer' => 'games#drawer'
+   get '/your-game' =>'games#your_game'
 end

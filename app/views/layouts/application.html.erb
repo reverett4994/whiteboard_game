@@ -10,11 +10,11 @@
   </head>
 
   <body onload="init()">
-    <% if user_signed_in?%>
+    <% if user_signed_in? %>
         <%=(current_user.email) %>
+        <%= current_user.guesser%>
         <% if current_user.game %>
-          game id
-          <%=current_user.game.id%>
+        <%= link_to "Your Game", "/your-game" %>
         <%end%>
         <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>
     <%else%>

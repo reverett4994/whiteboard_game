@@ -1,32 +1,55 @@
 class GamesController < ApplicationController
   before_action :set_game, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
 
   def guesser
     gon.url = current_user.op_url
     gon.user = current_user.id
   end
 
-  def make_drawer
-    @user = User.where("email LIKE ?",params[:user])
-    @user = @user.last
-    @game = @user.game
+
+
+  def start
+    @drawer = User.where("email LIKE ?",params[:user])
+    @drawer = @drawer.last
+    @game = @drawer.game
     @game.users.each do |u|
-      u.guesser = true
-      u.save
+      if u != @drawer 
+        u.guesser = true
+        u.save
+      end
+
     end
-    @user.guesser = false
-    @user.save
+    @drawer.guesser = false
+    @drawer.save
+
+    if current_user.guesser == true
+      redirect_to '/guesser'
+    else
+      redirect_to '/drawer'
+    end
+
+
   end
+
+  def drawer
+  end
+
   # GET /games
   # GET /games.json
   def index
     @games = Game.all
   end
 
+  def your_game
+    @user=current_user
+    @game=@user.game
+    redirect_to "/games/#{@game.id}"
+  end
+
   # GET /games/1
   # GET /games/1.json
   def show
-    
   end
 
   # GET /games/new

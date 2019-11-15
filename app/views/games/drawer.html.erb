@@ -1,0 +1,184 @@
+
+<canvas id="can" width="800" height="800" style="position:absolute;top:10%;left:10%;border:2px solid;"></canvas>
+
+<div class='picker'>Choose Color</div>
+<div class='picker' style= "background:green;" id="green" onclick="setcolor(this)"></div>
+<div class='picker' style="background:blue;" id="blue" onclick="setcolor(this)"></div>
+<div class='picker' style="background:red;" id="red" onclick="setcolor(this)"></div>
+<div class='picker' style="background:yellow;" id="yellow" onclick="setcolor(this)"></div>
+<div class='picker' style="background:orange;" id="orange" onclick="setcolor(this)"></div>
+<div class='picker' style="background:black;" id="black" onclick="setcolor(this)"></div>
+<div class='picker' style="">Eraser</div>
+<div class='picker' style="background:white;border:2px solid;" id="white" onclick="setcolor(this)"></div>
+
+
+<div class="picker">Choose size</div>
+<div class='picker' id='2' onclick="setthickness(this)">2</div>
+<div class='picker' id='5' onclick="setthickness(this)">5</div>
+<div class='picker'id='10' onclick="setthickness(this)">10</div>
+<div class='picker'id='20' onclick="setthickness(this)">20</div>
+<img id="canvasimg" style="position:absolute;top:10%;left:52%;" style="display:none;">
+
+<input type="button" value="save" id="btn" size="30" onclick="save()" >
+<input type="button" value="clear" id="clr" size="23" onclick="erase()" >
+
+<%= button_to "update url",'/user/update_op_url', params: { url: "SDJKFDSDFKJH" },:id => "update_btn"  %>
+
+<%= current_user.op_url%>
+
+    <script type="text/javascript">
+
+    var canvas, ctx, flag = false,
+        prevX = 0,
+        currX = 0,
+        prevY = 0,
+        currY = 0,
+        dot_flag = false;
+
+    var color = "black",
+        thickness = 2;
+    
+    function init() {
+        canvas = document.getElementById('can');
+        ctx = canvas.getContext("2d");
+        w = canvas.width;
+        h = canvas.height;
+    
+        canvas.addEventListener("mousemove", function (e) {
+            findxy('move', e)
+        }, false);
+        canvas.addEventListener("mousedown", function (e) {
+            findxy('down', e)
+        }, false);
+        canvas.addEventListener("mouseup", function (e) {
+            findxy('up', e)
+        }, false);
+        canvas.addEventListener("mouseout", function (e) {
+            findxy('out', e)
+        }, false);
+    }
+    
+    function setcolor(obj) {
+        switch (obj.id) {
+            case "green":
+                color = "green";
+                break;
+            case "blue":
+                color = "blue";
+                break;
+            case "red":
+                color = "red";
+                break;
+            case "yellow":
+                color = "yellow";
+                break;
+            case "orange":
+                color = "orange";
+                break;
+            case "black":
+                color = "black";
+                break;
+            case "white":
+                color = "white";
+                break;
+        }
+    }
+
+    function setthickness(obj) {
+        switch (obj.id) {
+            case "2":
+                thickness = 2;
+                break;
+            case "5":
+                thickness = 5;
+                break;
+            case "10":
+                thickness = 10;
+                break;
+            case "20":
+                thickness = 20;
+                break;
+        }
+    }
+    
+    function draw() {
+        ctx.beginPath();
+        ctx.moveTo(prevX, prevY);
+        ctx.lineTo(currX, currY);
+        ctx.strokeStyle = color;
+        ctx.lineWidth = thickness;
+        ctx.stroke();
+        ctx.closePath();
+    }
+    
+    function erase() {
+        var m = confirm("Want to clear");
+        if (m) {
+            ctx.clearRect(0, 0, w, h);
+            document.getElementById("canvasimg").style.display = "none";
+        }
+    }
+    
+    function save() {
+        document.getElementById("canvasimg").style.border = "2px solid";
+        var dataURL = canvas.toDataURL();
+        console.log(dataURL)
+        $('#update_btn').attr('url',dataURL);
+        document.getElementById("canvasimg").src = dataURL;
+        document.getElementById("canvasimg").style.display = "inline";
+
+            $.ajax({
+              type: "POST",
+              url: "/user/update_op_url",
+              dataType:"json",
+              data: {url:dataURL },
+              success:function(data) {
+                
+                return false;
+              },
+              error:function(data) {
+                
+                return false;
+              }
+            });
+
+    }
+    
+    function findxy(res, e) {
+        if (res == 'down') {
+            prevX = currX;
+            prevY = currY;
+            currX = e.clientX - canvas.offsetLeft;
+            currY = e.clientY - canvas.offsetTop;
+    
+            flag = true;
+            dot_flag = true;
+            if (dot_flag) {
+                ctx.beginPath();
+                ctx.fillStyle = color;
+                ctx.fillRect(currX, currY, 2, 2);
+                ctx.closePath();
+                dot_flag = false;
+            }
+        }
+        if (res == 'up' || res == "out") {
+            flag = false;
+        }
+        if (res == 'move') {
+            if (flag) {
+                prevX = currX;
+                prevY = currY;
+                currX = e.clientX - canvas.offsetLeft;
+                currY = e.clientY - canvas.offsetTop;
+                draw();
+
+
+            }
+        }
+    }
+
+ 
+ setInterval(function(){ save(); }, 3000);
+
+
+    </script>
