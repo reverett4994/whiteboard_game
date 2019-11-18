@@ -10,25 +10,32 @@ class GamesController < ApplicationController
 
 
   def start
-    @drawer = User.where("email LIKE ?",params[:user])
-    @drawer = @drawer.last
-    @game = @drawer.game
-    @game.users.each do |u|
-      if u != @drawer 
-        u.guesser = true
-        u.save
+    if params[:user]
+      @drawer = User.where("email LIKE ?",params[:user])
+      @drawer = @drawer.last
+      @game = @drawer.game
+      @game.users.each do |u|
+        if u != @drawer 
+          u.guesser = true
+          u.save
+        end
+
       end
+      @drawer.guesser = false
+      @drawer.save
 
-    end
-    @drawer.guesser = false
-    @drawer.save
-
-    if current_user.guesser == true
-      redirect_to '/guesser'
+      if current_user == @drawer
+        redirect_to '/drawer'
+      else
+        redirect_to '/guesser'
+      end
     else
-      redirect_to '/drawer'
+      if current_user.guesser == true
+        redirect_to '/guesser'
+      else
+        redirect_to '/drawer'
+      end
     end
-
 
   end
 

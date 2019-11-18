@@ -1,86 +1,65 @@
-Game Id Number : <%= @game.id%>
-<br>
 
-<br>
+<% if @game == current_user.game %>
+	Game Id Number : <%= @game.id%>
+	<br>
 
-<% if current_user == @game.users.first %>
+	<br>
+
+	<% if current_user == @game.users.first %>
 
 
-	  <%= form_with(url: "/games/add_opp", method: "post") do %>
-	  <%= label_tag(:opp, "New player email:") %>
-	  <%= text_field_tag(:opp) %>
-	  <%= hidden_field_tag 'game', @game.id %>
-	  <%= submit_tag("Add") %>
+		  <%= form_with(url: "/games/add_opp", method: "post") do %>
+		  <%= label_tag(:opp, "New player email:") %>
+		  <%= text_field_tag(:opp) %>
+		  <%= hidden_field_tag 'game', @game.id %>
+		  <%= submit_tag("Add") %>
+		<% end %>
+
+		<%if @game.users.count > 1 %>
+			Set Drawer <br> 
+			<%= form_with(url: "/start", method: 'post') do %>
+			  <% @game.users.each do |p| %>
+			    		<%= label_tag p.email%>
+						<%= check_box_tag "user", p.email, (p.guesser ? false : true) %>
+				      <br><br>
+			  <% end %>
+			  <%= submit_tag("Start!") %>
+			<% end %>
+		<%else%>
+			<p>Must have atleast 2 players to start game</p>
+		<%end%>
+		
+
+
+
+
+	<% else %>
+		<h2>Players</h2>
+		<% @game.users.each do |p| %>
+			<% if p.guesser%>
+				<%= p.email%>
+			<%else%>
+				<%= p.email%> - Drawer
+			<%end%>
+			 <br>
+		<%end%>
+		<%= link_to "Start", '/start', :method => "POST"  %>
+
+
+
 	<% end %>
 
-
-	Set Drawer <br> 
-
-	<%= form_with(url: "/start", method: 'post') do %>
-	  <% @game.users.each do |p| %>
-	    		<%= label_tag p.email%>
-				<%= check_box_tag "user", p.email, false %>
-		      <br><br>
-	  <% end %>
-	  <%= submit_tag("Start!") %>
-
-
-
-<% end %>
+<%else%>
+	<p>You are not part of this game!</p>
+<%end%>
 
 
 
 
-
-<% end %>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<% if false%>
-		<% @game.users.each do |p|%>
-
-		<%= label_tag p.email%>
-		<%= check_box_tag "user", p.email, false,
-	      data: {
-	        remote: true,
-	        url: "/make_drawer",
-	        method: "POST"
-	      } %>
-	      <br><br>
-
-	<%end%>
-<% end%>
+<script>
+$(document).ready(function(){
+    $(":checkbox" ).click(function() {
+        $(":checkbox" ).not(this).prop('checked', false);
+    });
+});
+</script>

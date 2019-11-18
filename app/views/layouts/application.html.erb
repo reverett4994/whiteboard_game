@@ -5,24 +5,38 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= Gon::Base.render_data %>
+    <link href="https://fonts.googleapis.com/css?family=Alata|Roboto&display=swap" rel="stylesheet">
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body onload="init()">
-    <% if user_signed_in? %>
-        <%=(current_user.email) %>
-        <%= current_user.guesser%>
-        <% if current_user.game %>
-        <%= link_to "Your Game", "/your-game" %>
-        <%end%>
-        <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>
-    <%else%>
-       <%= link_to('Login',new_user_session_path)%>
-       <%= link_to('Sign Up',new_user_registration_path)%>
-    <%end%>
+    <div class="header">
+      <%= link_to "Placeholder!","/",class: "logo"%>
+      <% if user_signed_in? %>
+          <p> <%=(current_user.email) %> </p>
+          <% if current_user.guesser%>
+            <p>You are a guesser</p>
+          <%else%>
+            <p>You are a drawer</div></p>
+          <%end%>
+          <div class='headerleft'>
+            <% if current_user.game %>
+            <%= link_to "Your Game", "/your-game" %>
+            <%= link_to "New Game", "/games/new" %>
+            <%end%>
+            <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>
+          </div>
+      <%else%>
+         <%= link_to('Login',new_user_session_path)%>
+         <%= link_to('Sign Up',new_user_registration_path)%>
+      <%end%>
+    </div>
+
       <p class="notice"><%= notice %></p>
       <p class="alert"><%= alert %></p>
+
     <%= yield %>
+
   </body>
 </html>
