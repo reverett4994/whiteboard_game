@@ -11,7 +11,7 @@ class GamesController < ApplicationController
 
   def start
     if params[:user]
-      @drawer = User.where("email LIKE ?",params[:user])
+      @drawer = User.where("username LIKE ?",params[:user])
       @drawer = @drawer.last
       @game = @drawer.game
       @game.users.each do |u|
@@ -113,7 +113,7 @@ class GamesController < ApplicationController
     opp = params[:opp]
     new_game = params[:game]
     new_game = Game.find(new_game)
-    opp = User.where("email LIKE ?",opp)
+    opp = User.where("username LIKE ?",opp)
     opp=opp.last
     opp.game= new_game
     opp.save
