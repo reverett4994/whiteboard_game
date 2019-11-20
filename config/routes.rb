@@ -1,9 +1,11 @@
 Rails.application.routes.draw do
+  resources :things
   resources :games
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
   get 'pages/home' => 'high_voltage/pages#show', id: 'home'
     Rails.application.routes.draw do
+  resources :things
   resources :games
       devise_for :users, controllers: {
         sessions: 'users/sessions'
@@ -18,4 +20,6 @@ Rails.application.routes.draw do
    post 'start' => 'games#start'
    get '/drawer' => 'games#drawer'
    get '/your-game' =>'games#your_game'
+   post '/games/guess' => 'games#guess'
+   post '/check' => 'games#check'
 end

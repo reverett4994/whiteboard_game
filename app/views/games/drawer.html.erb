@@ -9,7 +9,7 @@
 <div class='picker' style="background:orange;" id="orange" onclick="setcolor(this)"></div>
 <div class='picker' style="background:black;" id="black" onclick="setcolor(this)"></div>
 <div class='picker' style="">Eraser</div>
-<div class='picker' style="background:white;border:2px solid;" id="white" onclick="setcolor(this)"></div>
+<div class='picker' style="background:#F4EBD9;border:2px solid;" id="white" onclick="setcolor(this)"></div>
 
 
 <div class="picker">Choose size</div>
@@ -17,14 +17,11 @@
 <div class='picker' id='5' onclick="setthickness(this)">5</div>
 <div class='picker'id='10' onclick="setthickness(this)">10</div>
 <div class='picker'id='20' onclick="setthickness(this)">20</div>
-<img id="canvasimg" style="position:absolute;top:10%;left:52%;" style="display:none;">
 
-<input type="button" value="save" id="btn" size="30" onclick="save()" >
+
 <input type="button" value="clear" id="clr" size="23" onclick="erase()" >
 
-<%= button_to "update url",'/user/update_op_url', params: { url: "SDJKFDSDFKJH" },:id => "update_btn"  %>
 
-<%= current_user.op_url%>
 
     <script type="text/javascript">
 
@@ -41,9 +38,13 @@
     function init() {
         canvas = document.getElementById('can');
         ctx = canvas.getContext("2d");
+        canvas.width = window.innerWidth * .50;
+        canvas.height = window.innerHeight * .50;        
         w = canvas.width;
         h = canvas.height;
-    
+
+
+
         canvas.addEventListener("mousemove", function (e) {
             findxy('move', e)
         }, false);
@@ -79,7 +80,7 @@
                 color = "black";
                 break;
             case "white":
-                color = "white";
+                color = "#F4EBD9";
                 break;
         }
     }
@@ -120,13 +121,9 @@
     }
     
     function save() {
-        document.getElementById("canvasimg").style.border = "2px solid";
         var dataURL = canvas.toDataURL();
         console.log(dataURL)
         $('#update_btn').attr('url',dataURL);
-        document.getElementById("canvasimg").src = dataURL;
-        document.getElementById("canvasimg").style.display = "inline";
-
             $.ajax({
               type: "POST",
               url: "/user/update_op_url",
@@ -141,7 +138,6 @@
                 return false;
               }
             });
-
     }
     
     function findxy(res, e) {
@@ -177,8 +173,24 @@
         }
     }
 
- 
- setInterval(function(){ save(); }, 500);
+    function check() {
+            $.ajax({
+              type: "POST",
+              url: "/check",
+              dataType:"json",
+              data: {},
+              success:function(data) {
+                console.log("good");
+                return false;
+              },
+              error:function(data) {
+                console.log(data.responseText);                
+                return false;
+              }
+            });
+    }    
+ setInterval(function(){ check(); }, 5000);
+ setInterval(function(){ saave(); }, 500);
 
 
     </script>

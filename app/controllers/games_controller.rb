@@ -7,7 +7,32 @@ class GamesController < ApplicationController
     gon.user = current_user.id
   end
 
+  def guess
+    @guess = params[:guess]
+    @gameid = params[:game]
+    @game = Game.find(@gameid)
+    if @guess.downcase == @game.thing.name.downcase
+      @game.completed = true
+      @game.winner = current_user.username
+      @game.save
+      respond_to do |format|
+        format.html { redirect_to @game, notice: 'YAY YOU WIN!!!!!' }
+      end
+    else
+        flash[:notice] = 'WRONG'
+        redirect_back(fallback_location: root_path)
+    end
+  end
 
+  def check
+    @game = current_user.game
+    if @game.completed  
+      respond_to do |format|
+        format.json { render :js => "window.location = '/'" }
+
+      end
+    end
+  end
 
   def start
     if params[:user]
@@ -40,6 +65,7 @@ class GamesController < ApplicationController
   end
 
   def drawer
+    gon.user = current_user
   end
 
   # GET /games
@@ -57,6 +83,7 @@ class GamesController < ApplicationController
   # GET /games/1
   # GET /games/1.json
   def show
+
   end
 
   # GET /games/new
@@ -72,6 +99,8 @@ class GamesController < ApplicationController
   # POST /games.json
   def create
     @game = Game.new(game_params)
+    @game.thing = Thing.order("RAND()").first
+    @game.save
     current_user.game=@game
     current_user.save
     respond_to do |format|

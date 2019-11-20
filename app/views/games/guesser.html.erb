@@ -1,6 +1,42 @@
-<img id="canvasimg" style="position:absolute;top:10%;left:52%;" style="display:none;">
+<img id="canvasimg" style="position:absolute;top:10%;left:25%;" style="display:none;">
 
-<input type="button" value="save" id="btn" size="30" onclick="save()" >
+  <%= form_with(url: "/games/guess", method: "post") do %>
+      <%= label_tag(:guess, "Guess") %>
+      <%= text_field_tag(:guess) %>
+      <%= hidden_field_tag 'game', current_user.game.id %>
+      <%= submit_tag("Guess") %>
+  <% end %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <script type="text/javascript">
 
     var canvas, ctx, flag = false,
@@ -149,7 +185,7 @@
         }
     }
 
- setInterval(function(){ save(); }, 500);
+ //setInterval(function(){ save(); }, 500);
 
 
     </script>

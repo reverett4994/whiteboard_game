@@ -7,6 +7,7 @@
 
 	<% if current_user == @game.users.first %>
 
+		  <%= @game.thing.name%>
 
 		  <%= form_with(url: "/games/add_opp", method: "post") do %>
 		  <%= label_tag(:opp, "New player username:") %>
@@ -48,7 +49,8 @@
 
 
 	<% end %>
-
+Completed? <%= @game.completed%>
+Winner: <%= @game.winner%>
 <%else%>
 	<p>You are not part of this game!</p>
 <%end%>
