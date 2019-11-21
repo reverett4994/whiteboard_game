@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_20_083945) do
+ActiveRecord::Schema.define(version: 2019_11_21_091603) do
 
   create_table "games", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(version: 2019_11_20_083945) do
     t.integer "game_id"
     t.boolean "guesser", default: true
     t.string "username"
+    t.integer "wins", default: 0
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true

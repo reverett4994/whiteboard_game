@@ -22,4 +22,5 @@ Rails.application.routes.draw do
    get '/your-game' =>'games#your_game'
    post '/games/guess' => 'games#guess'
    post '/check' => 'games#check'
+   get 'games/:id/review' => 'games#review'
 end

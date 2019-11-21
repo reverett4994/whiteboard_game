@@ -184,13 +184,16 @@
                 return false;
               },
               error:function(data) {
-                console.log(data.responseText);                
+                console.log(data.responseText);  
+                if (data.responseText == 'completed') {
+                    window.location ="/games/"+gon.id+"/review";
+                };              
                 return false;
               }
             });
     }    
- setInterval(function(){ check(); }, 5000);
- setInterval(function(){ saave(); }, 500);
+ setInterval(function(){ check(); }, 500);
+ setInterval(function(){ save(); }, 500);
 
 
     </script>

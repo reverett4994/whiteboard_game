@@ -1,6 +1,10 @@
 class GamesController < ApplicationController
-  before_action :set_game, only: [:show, :edit, :update, :destroy]
+  before_action :set_game, only: [:show, :edit, :update, :destroy,:review]
   before_action :authenticate_user!
+
+  def review
+    @winner = User.where("username LIKE ?",@game.winner).last
+  end
 
   def guesser
     gon.url = current_user.op_url
@@ -14,9 +18,11 @@ class GamesController < ApplicationController
     if @guess.downcase == @game.thing.name.downcase
       @game.completed = true
       @game.winner = current_user.username
+      current_user.wins +=1
+      current_user.save
       @game.save
       respond_to do |format|
-        format.html { redirect_to @game, notice: 'YAY YOU WIN!!!!!' }
+        format.html { redirect_to "/games/#{@game.id}/review", notice: 'YAY YOU WIN!!!!!' }
       end
     else
         flash[:notice] = 'WRONG'
@@ -28,8 +34,8 @@ class GamesController < ApplicationController
     @game = current_user.game
     if @game.completed  
       respond_to do |format|
-        format.json { render :js => "window.location = '/'" }
-
+        format.js {render js: "completed"}
+        #format.json { render :js => "window.location = '/'" }
       end
     end
   end
@@ -66,6 +72,7 @@ class GamesController < ApplicationController
 
   def drawer
     gon.user = current_user
+    gon.id = current_user.game.id
   end
 
   # GET /games
