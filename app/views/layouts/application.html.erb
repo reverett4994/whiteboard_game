@@ -14,12 +14,7 @@
     <div class="header">
       <%= link_to "Placeholder!","/",class: "logo"%>
       <% if user_signed_in? %>
-          <p> <%=(current_user.email) %> </p>
-          <% if current_user.guesser%>
-            <p>You are a guesser</p>
-          <%else%>
-            <p>You are a drawer</p>
-          <%end%>
+          <p> Hello <%=(current_user.username) %> </p>
           <div class='headerleft'>
             <% if current_user.game %>
             <%= link_to "Your Game", "/your-game" %>

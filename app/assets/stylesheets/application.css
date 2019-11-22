@@ -9,7 +9,7 @@
  * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
- *
+ * #ee4035 • #f37736 • #fdf498 • #7bc043 • #0392cf
  *
  font-family: 'Roboto', sans-serif;
  font-family: 'Alata', sans-serif;
@@ -38,7 +38,7 @@
 
 html, body{
 	font-family: 'Alata', sans-serif;
-	background-color: #F4EBD9;
+	background-color: #eaebed;
 	color: #483D3F;
 }
 body{
@@ -50,6 +50,18 @@ a{
 	text-decoration: none;
 	color: black;
 }
+
+.wrapper{
+	width: 100%;
+	text-align: center;
+	padding: 2em;
+}
+
+.header1{
+ 	width: 100%;
+ 	text-align: center;
+ 	height: 5em;
+ }
 
 /*************************************************HEADER**********************************************/
 .header{
@@ -69,7 +81,7 @@ a{
 	color:#F4EBD9;
 }
 .header a:hover{
-	color: #483D3F;
+	color: #7bc043;
 }
  .headerleft{
 	display: inline-block;
@@ -86,3 +98,67 @@ a{
 	font-size: 30px;
 	margin-right: 1em;
 }
+
+
+
+
+
+
+/*************************************************HOME**********************************************/
+
+
+.banner_1{
+	height: 9em;
+	text-align: center;
+	padding-top: 2em;
+	background-color: #f37736; 
+	margin-top: -1em;
+}
+.b2{
+	background-color: #7bc043;  
+}
+.b3{
+	background-color: #058ED9;  
+}
+.image_div_container{
+	text-align: center;
+	padding-bottom: 1em;
+}
+.image_div_container img{
+	height:25em;
+
+}
+
+
+
+
+
+/*************************************************GAME SHOW **********************************************/
+
+.link_btn{
+	display: inline-block;
+	margin-top: 1em;
+	background-color: #7bc043;
+	padding: .5em;
+	font-size: 20px;
+	border-radius: 15px;
+	border: 1px solid #5d9133;
+}
+input[type="button"], input[type="submit"] {
+	display: inline-block;
+	margin-top: 1em;
+	background-color: #7bc043;
+	padding: .5em;
+	font-size: 20px;
+	border-radius: 15px;
+	border: 1px solid #5d9133;
+}
+
+
+/*************************************************DRAWER **********************************************/
+ 
+ .form_wrapper{
+ 	position: absolute;
+ 	top: 60%;
+ 	left: 43%;
+ }

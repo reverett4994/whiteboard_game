@@ -1,5 +1,7 @@
-<img id="canvasimg" style="position:absolute;top:10%;left:25%;" style="display:none;">
+<h1 class="header1">Guess what the drawing is </h1>
 
+<img id="canvasimg" style="position:absolute;top:20%;left:25%;" style="display:none;">
+<div class='form_wrapper'>
   <%= form_with(url: "/games/guess", method: "post") do %>
       <%= label_tag(:guess, "Guess") %>
       <%= text_field_tag(:guess) %>
@@ -7,7 +9,7 @@
       <%= submit_tag("Guess") %>
   <% end %>
 
-
+</div>
 
 
 
@@ -184,6 +186,28 @@
             }
         }
     }
+
+    function check() {
+            $.ajax({
+              type: "POST",
+              url: "/check",
+              dataType:"json",
+              data: {},
+              success:function(data) {
+                console.log("good");
+                return false;
+              },
+              error:function(data) {
+                console.log(data.responseText);  
+                if (data.responseText == 'completed') {
+                    window.location ="/games/"+gon.id+"/review";
+                };              
+                return false;
+              }
+            });
+    }
+
+ setInterval(function(){ check(); }, 500);
 
  setInterval(function(){ save(); }, 500);
 

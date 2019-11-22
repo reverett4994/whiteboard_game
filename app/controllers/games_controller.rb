@@ -9,6 +9,7 @@ class GamesController < ApplicationController
   def guesser
     gon.url = current_user.op_url
     gon.user = current_user.id
+    gon.id = current_user.game.id
   end
 
   def guess
@@ -71,6 +72,7 @@ class GamesController < ApplicationController
   end
 
   def drawer
+    @game=current_user.game
     gon.user = current_user
     gon.id = current_user.game.id
   end
@@ -90,7 +92,9 @@ class GamesController < ApplicationController
   # GET /games/1
   # GET /games/1.json
   def show
-
+    if @game.completed
+      redirect_to "/games/#{@game.id}/review"
+    end
   end
 
   # GET /games/new
