@@ -155,8 +155,16 @@ class GamesController < ApplicationController
     new_game = Game.find(new_game)
     opp = User.where("username LIKE ?",opp)
     opp=opp.last
-    opp.game= new_game
-    opp.save
+    if opp != nil
+      opp.game= new_game
+      opp.save
+      redirect_back(fallback_location: root_path,notice: 'Player added')
+    else
+      redirect_back(fallback_location: root_path,alert: 'No Player Found')
+    end
+
+
+
   end
 
   private

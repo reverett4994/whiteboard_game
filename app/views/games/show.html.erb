@@ -3,7 +3,7 @@
 	<h1>Your Current Game</h1>
 
 	<% if current_user == @game.users.first %>
-		  <h2>Your the game's leader</h2>	
+		  <h3>Your the game's leader</h3>	
 		  <%= form_with(url: "/games/add_opp", method: "post") do %>
 		  <%= label_tag(:opp, "Add player by username:") %>
 		  <%= text_field_tag(:opp) %>
@@ -14,7 +14,7 @@
 		<%if @game.users.count > 1 %>
 			<h2>Current Players</h2>
 			<h3>Set Drawer</h3> 
-			<%= form_with(url: "/start", method: 'post') do %>
+			<%= form_with(url: "/start", method: 'post', class:"drawerform") do %>
 			  <% @game.users.each do |p| %>
 			    		<%= label_tag p.username%>
 						<%= check_box_tag "user", p.username, (p.guesser ? false : true) %>
@@ -31,7 +31,7 @@
 
 
 	<% else %>
-	    <h2><%=@game.users.first.username%> is the games leader</h2>
+	    <h2><%=@game.users.first.username%> is the game's leader</h2>
 		<h2>Players</h2>
 		<% @game.users.each do |p| %>
 			<% if p.guesser%>

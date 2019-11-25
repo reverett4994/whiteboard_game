@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Whiteboard</title>
+    <title>Drawopedia</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= Gon::Base.render_data %>
@@ -12,7 +12,8 @@
 
   <body onload="init()">
     <div class="header">
-      <%= link_to "Placeholder!","/",class: "logo"%>
+      <%= link_to "Drawopedia","/",class: "logo"%>
+      <%= image_tag("exclamation.png", :alt => "rss feed",:class=>'headermark',:id=>"headermark") %>
       <% if user_signed_in? %>
           <p> Hello <%=(current_user.username) %> </p>
           <div class='headerleft'>
@@ -23,15 +24,33 @@
             <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>
           </div>
       <%else%>
-         <%= link_to('Login',new_user_session_path)%>
-         <%= link_to('Sign Up',new_user_registration_path)%>
+         <%= link_to "Start/Join a Game", "/games/new" %>
+         <div class="headerleft">
+           <%= link_to('Login',new_user_session_path)%>
+           <%= link_to('Sign Up',new_user_registration_path)%>
+         </div>
       <%end%>
     </div>
+      <% if flash[:alert] %>
+        <p class="alert"><%= alert %></p>
+      <%end%>
 
-      <p class="notice"><%= notice %></p>
-      <p class="alert"><%= alert %></p>
-
+      <% if flash[:notice] %>
+        <p class="notice"><%= notice %></p>
+      <%end%>
+      <% if false%>
+        <%= asset_path('exclamationgreen.png') %>
+      <%end%>
     <%= yield %>
 
   </body>
 </html>
+
+<script type="text/javascript">
+$(".logo").hover(function(){
+    document.getElementById("headermark").src = "/assets/exclamationgreen-2bfff233f6a407a83897428098c598ed96990d144c7d999c2a074b3316c051fe.png";
+  }, function(){
+  document.getElementById("headermark").src = "/assets/exclamation-d400e174b9164021660abbff3db9d3013d10b8861ade4374734e2044c9d13f78.png";
+});
+
+</script>

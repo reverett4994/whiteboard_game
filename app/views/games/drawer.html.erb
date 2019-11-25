@@ -1,22 +1,21 @@
 <h1 class="header1">You need to draw: <%= @game.thing.name %> </h1>
 <canvas id="can" width="800" height="800" style="position:absolute;top:20%;left:10%;border:2px solid;"></canvas>
 
-<div class='picker'>Choose Color</div>
+<div>Choose Color</div>
 <div class='picker' style= "background:green;" id="green" onclick="setcolor(this)"></div>
 <div class='picker' style="background:blue;" id="blue" onclick="setcolor(this)"></div>
 <div class='picker' style="background:red;" id="red" onclick="setcolor(this)"></div>
 <div class='picker' style="background:yellow;" id="yellow" onclick="setcolor(this)"></div>
 <div class='picker' style="background:orange;" id="orange" onclick="setcolor(this)"></div>
 <div class='picker' style="background:black;" id="black" onclick="setcolor(this)"></div>
-<div class='picker' style="">Eraser</div>
-<div class='picker' style="background:#F4EBD9;border:2px solid;" id="white" onclick="setcolor(this)"></div>
+<div class='picker' style="background:#eaebed;border:2px solid;" id="white" onclick="setcolor(this)"></div>
 
 
-<div class="picker">Choose size</div>
+<div>Choose size</div>
 <div class='picker' id='2' onclick="setthickness(this)">2</div>
 <div class='picker' id='5' onclick="setthickness(this)">5</div>
 <div class='picker'id='10' onclick="setthickness(this)">10</div>
-<div class='picker'id='20' onclick="setthickness(this)">20</div>
+<div class='picker last'id='20' onclick="setthickness(this)">20</div>
 
 
 <input type="button" value="clear" id="clr" size="23" onclick="erase()" >
@@ -80,7 +79,7 @@
                 color = "black";
                 break;
             case "white":
-                color = "#F4EBD9";
+                color = "#eaebed";
                 break;
         }
     }
