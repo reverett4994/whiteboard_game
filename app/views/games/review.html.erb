@@ -1,5 +1,20 @@
-<h1>Game Over!</h1>
-<h2>The drawing was correctly guessed</h2>
+<div class="wrapper">
+	<h1>Game Over!</h1>
+	<h2>The drawing was correctly guessed as <%= @game.thing.name%></h2>
 
-<h2>The winner was <%=@game.winner%></h2>
-<h3>They have <%=@winner.wins%> wins!</h3>
+	<h2>The winner was <%=@game.winner%></h2>
+	<h3>They have <%=@winner.wins%> wins!</h3>
+	<img id="canvasimg" style="top:20%;left:25%;display:none;"><br>
+	<%= link_to "Play again?", "/games/new" %>
+</div>
+
+
+
+<script type="text/javascript">
+$( document ).ready(function() {
+    console.log( gon.url );
+    document.getElementById("canvasimg").style.border = "2px solid";
+	document.getElementById("canvasimg").src = gon.url;
+    document.getElementById("canvasimg").style.display = "inline-block";
+})
+</script>

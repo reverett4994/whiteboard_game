@@ -13,7 +13,7 @@
 
 <div>Choose size</div>
 <div class='picker' id='2' onclick="setthickness(this)">2</div>
-<div class='picker' id='5' onclick="setthickness(this)">5</div>
+<div class='picker start_picker' id='5' onclick="setthickness(this)">5</div>
 <div class='picker'id='10' onclick="setthickness(this)">10</div>
 <div class='picker last'id='20' onclick="setthickness(this)">20</div>
 
@@ -32,7 +32,7 @@
         dot_flag = false;
 
     var color = "black",
-        thickness = 2;
+        thickness = 5;
     
     function init() {
         canvas = document.getElementById('can');
@@ -87,15 +87,31 @@
     function setthickness(obj) {
         switch (obj.id) {
             case "2":
+                $("#2").css("border-color", "red");
+                $("#5").css("border-color", "black");
+                $("#10").css("border-color", "black");
+                $("#20").css("border-color", "black");
                 thickness = 2;
                 break;
             case "5":
+                $("#5").css("border-color", "red");
+                $("#2").css("border-color", "black");
+                $("#10").css("border-color", "black");
+                $("#20").css("border-color", "black");
                 thickness = 5;
                 break;
             case "10":
+                $("#10").css("border-color", "red");
+                $("#5").css("border-color", "black");
+                $("#2").css("border-color", "black");
+                $("#20").css("border-color", "black");
                 thickness = 10;
                 break;
             case "20":
+                $("#20").css("border-color", "red");
+                $("#5").css("border-color", "black");
+                $("#10").css("border-color", "black");
+                $("#2").css("border-color", "black");
                 thickness = 20;
                 break;
         }
@@ -121,7 +137,6 @@
     
     function save() {
         var dataURL = canvas.toDataURL();
-        console.log(dataURL)
         $('#update_btn').attr('url',dataURL);
             $.ajax({
               type: "POST",
@@ -179,11 +194,9 @@
               dataType:"json",
               data: {},
               success:function(data) {
-                console.log("good");
                 return false;
               },
               error:function(data) {
-                console.log(data.responseText);  
                 if (data.responseText == 'completed') {
                     window.location ="/games/"+gon.id+"/review";
                 };              

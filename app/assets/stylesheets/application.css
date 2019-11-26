@@ -164,7 +164,6 @@ h3{
 	border-radius: 15px;
 	border: 1px solid #5d9133;
 	transition: background-color .5s linear;
-	transition: color .5s linear;
 }
 .link_btn:hover{
 	background-color: #058ED9;
@@ -179,7 +178,6 @@ input[type="button"], input[type="submit"] {
 	border-radius: 15px;
 	border: 1px solid #5d9133;
 	transition: background-color .5s linear;
-	transition: color .5s linear;
 }
 input[type="submit"]:hover{
 	background-color: #058ED9;
@@ -204,7 +202,6 @@ input[type="submit"]:hover{
 /*************************************************DRAWER **********************************************/
  
  .form_wrapper{
- 	position: absolute;
  	top: 60%;
  	left: 43%;
  }
@@ -219,4 +216,14 @@ input[type="submit"]:hover{
 }
 .last{
 	border-bottom: 2px solid black;
+}
+.start_picker{
+	border-color: red;
+}
+
+
+/*************************************************Guesser **********************************************/
+
+.form_clear{
+	clear: both;
 }

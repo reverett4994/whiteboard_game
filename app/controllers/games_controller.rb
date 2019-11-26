@@ -4,6 +4,15 @@ class GamesController < ApplicationController
 
   def review
     @winner = User.where("username LIKE ?",@game.winner).last
+    if @game.winning_url == nil
+      @game.winning_url = @winner.op_url
+      @game.save
+    end
+    gon.url = @game.winning_url
+    @game.users.each do |u|
+        u.op_url = nil
+        u.save
+      end
   end
 
   def guesser
@@ -26,7 +35,7 @@ class GamesController < ApplicationController
         format.html { redirect_to "/games/#{@game.id}/review", notice: 'YAY YOU WIN!!!!!' }
       end
     else
-        flash[:notice] = 'WRONG'
+        flash[:alert] = 'WRONG'
         redirect_back(fallback_location: root_path)
     end
   end
