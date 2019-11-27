@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_26_085623) do
+ActiveRecord::Schema.define(version: 2019_11_27_074146) do
 
   create_table "games", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 2019_11_26_085623) do
     t.boolean "completed", default: false
     t.string "winner"
     t.text "winning_url", size: :long
+    t.integer "thing_id"
   end
 
   create_table "things", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|

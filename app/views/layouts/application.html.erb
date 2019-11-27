@@ -8,6 +8,8 @@
     <link href="https://fonts.googleapis.com/css?family=Alata|Roboto&display=swap" rel="stylesheet">
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   </head>
 
   <body onload="init()">
@@ -24,7 +26,7 @@
             <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>
           </div>
       <%else%>
-         <%= link_to "Start/Join a Game", "/games/new" %>
+         <p><%= link_to "Start / Join Game", "/games/new" %></p>
          <div class="headerleft">
            <%= link_to('Login',new_user_session_path)%>
            <%= link_to('Sign Up',new_user_registration_path)%>

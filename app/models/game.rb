@@ -1,4 +1,4 @@
 class Game < ApplicationRecord
 	has_many :users
-	has_one :thing
+	belongs_to :thing
 end

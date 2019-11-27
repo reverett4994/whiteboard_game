@@ -94,8 +94,13 @@ class GamesController < ApplicationController
 
   def your_game
     @user=current_user
-    @game=@user.game
-    redirect_to "/games/#{@game.id}"
+    if @user.game == nil
+      redirect_to "/games/new", notice: 'You currently are not in a game!' 
+    else
+      @game=@user.game
+      redirect_to "/games/#{@game.id}"
+    end
+
   end
 
   # GET /games/1
