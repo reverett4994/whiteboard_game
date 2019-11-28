@@ -20,12 +20,10 @@
 
 
 #cann{
-	width: 400px;
+	width: 75%;
 	height: 400px;
-	position:absolute;
-	top:10%;
-	left:10%;
 	border:2px solid;
+	touch-action: none;
 }
 
 
