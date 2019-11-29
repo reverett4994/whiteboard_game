@@ -19,9 +19,10 @@
 
 
 
-#cann{
-	width: 75%;
-	height: 400px;
+#can{
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
 	border:2px solid;
 	touch-action: none;
 }
@@ -54,6 +55,7 @@ a{
 
 .header1{
  	width: 100%;
+ 	max-width: 100%;
  	text-align: center;
  	height: 5em;
  }

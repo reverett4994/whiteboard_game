@@ -1,6 +1,6 @@
 <h1 class="header1">You need to draw: <%= @game.thing.name %> </h1>
 
-<canvas id="can"  style="top:20%;left:10%;border:2px solid;"></canvas>
+<canvas id="can"  style="border:2px solid;"></canvas>
 
 <div>Choose Color</div>
 <div class='picker' style= "background:green;" id="green" onclick="setcolor(this)"></div>
@@ -30,8 +30,8 @@
     thickness = 5;
     ctx.strokeStyle = "#222222";
     ctx.lineWith = 2;
-    canvas.width = window.innerWidth * .50;
-    canvas.height = window.innerHeight * .50;        
+    canvas.width = window.innerWidth * .9;
+    canvas.height = window.innerHeight * .7;        
     w = canvas.width;
     h = canvas.height;
 
@@ -242,12 +242,34 @@
               error:function(data) {
                 if (data.responseText == 'completed') {
                     window.location ="/games/"+gon.id+"/review";
+                }else if (data.responseText == 'guesser') {
+                    window.location ="/games/"+gon.gameid;
                 };              
                 return false;
               }
             });
     }  
+
+    function checkDrawer() {
+            $.ajax({
+              type: "POST",
+              url: "/checkdrawer",
+              dataType:"json",
+              data: {},
+              success:function(data) {
+                return false;
+              },
+              error:function(data) {
+                console.log(data.responseText)
+                if (data.responseText == 'guesser') {
+                    window.location ="/games/"+gon.gameid;
+                };              
+                return false;
+              }
+            });
+    }      
     
-    setInterval(function(){ check(); }, 500);
+    setInterval(function(){ check(); }, 1000);
+
     setInterval(function(){ save(); }, 500);       
 </script>

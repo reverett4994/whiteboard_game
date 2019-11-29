@@ -42,13 +42,20 @@ class GamesController < ApplicationController
 
   def check
     @game = current_user.game
+
     if @game.completed  
       respond_to do |format|
         format.js {render js: "completed"}
         #format.json { render :js => "window.location = '/'" }
       end
+    elsif current_user.guesser == true 
+      respond_to do |format|
+        format.js {render js: "guesser"}
+      end
     end
   end
+
+
 
   def start
     if params[:user]
@@ -81,7 +88,11 @@ class GamesController < ApplicationController
   end
 
   def drawer
+    if current_user.guesser == true
+      redirect_back(fallback_location: root_path,alert: 'You are not the drawer')
+    end
     @game=current_user.game
+    gon.gameid = @game.id
     gon.user = current_user
     gon.id = current_user.game.id
   end
@@ -176,10 +187,9 @@ class GamesController < ApplicationController
     else
       redirect_back(fallback_location: root_path,alert: 'No Player Found')
     end
-
-
-
   end
+
+
 
   private
     # Use callbacks to share common setup or constraints between actions.
