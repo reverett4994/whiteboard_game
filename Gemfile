@@ -57,3 +57,5 @@ gem 'high_voltage', '~> 3.1'
 gem 'jquery-rails'
 
 gem 'gon'
+
+gem 'rails_12factor', group: :production
