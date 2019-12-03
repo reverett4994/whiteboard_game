@@ -1,5 +1,5 @@
 Rails.application.configure do
-  config.action_mailer.default_url_options = { :host => 'https://fathomless-brook-36187.herokuapp.com/' }
+  config.action_mailer.default_url_options = { :host => 'https://fathomless-brook-36187.herokuapp.com' }
   ActionMailer::Base.smtp_settings = {
     :address        => "smtp.sendgrid.net",
     :port           => "25",
