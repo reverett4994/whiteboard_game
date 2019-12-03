@@ -6,7 +6,7 @@ Rails.application.configure do
     :authentication => :plain,
     :user_name      => ENV['SENDGRID_USERNAME'],
     :password       => ENV['SENDGRID_PASSWORD'],
-    :domain         => ENV['SENDGRID_DOMAIN']
+    :domain         => "https://fathomless-brook-36187.herokuapp.com"
   }
 
   # Settings specified here will take precedence over those in config/application.rb.
